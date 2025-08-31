@@ -27,9 +27,27 @@ pip install holographic-memory
 
 ```python
 import holographic_memory
+import numpy as np
 
-# Example usage
-print("✅ Holographic Memory loaded successfully!")
+# Create holographic memory
+memory = holographic_memory.create_holographic_memory(
+    vector_size=512,
+    num_items=1000
+)
+
+# Store associations
+memory.bind("cat", "animal")
+memory.bind("dog", "animal") 
+memory.bind("car", "vehicle")
+
+# Retrieve and test
+result = memory.probe("cat")
+print(f"✅ 'cat' associated with: {result}")
+
+# Clean up noisy retrieval
+cleanup = holographic_memory.AssociativeCleanup(memory.get_vocabulary())
+cleaned = cleanup.cleanup(result)
+print(f"✅ Cleaned result: {cleaned}")
 ```
 
 ## 🎓 About the Implementation
