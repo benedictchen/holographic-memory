@@ -13,9 +13,9 @@
 
 # Holographic Memory
 
-🌟 Compositional memory with fixed-size vectors via circular convolution (Holographic Reduced Representations)
+🌀 Holographic Reduced Representations - Vector symbolic architecture
 
-**Plate, T. A. (1995)** - "Holographic Reduced Representations"
+**Plate, T. A. (1995) - "Holographic Reduced Representations"**
 
 ## 📦 Installation
 
@@ -23,11 +23,32 @@
 pip install holographic-memory
 ```
 
+## 🚀 Quick Start
+
+```python
+import holographic_memory
+
+# Example usage
+print("✅ Holographic Memory loaded successfully!")
+```
+
 ## 🎓 About the Implementation
 
 Implemented by **Benedict Chen** - bringing foundational AI research to modern Python.
 
 📧 Contact: benedict@benedictchen.com
+
+## 📖 Citation
+
+If you use this implementation in your research, please cite the original paper:
+
+```bibtex
+Plate, T. A. (1995) - "Holographic Reduced Representations"
+```
+
+## 📜 License
+
+Custom Non-Commercial License with Donation Requirements - See LICENSE file for details.
 
 ---
 
