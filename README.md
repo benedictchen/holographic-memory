@@ -5,7 +5,7 @@
 **[💳 DONATE VIA PAYPAL - CLICK HERE](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS)**
 
 [![CI](https://github.com/benedictchen/holographic-memory/workflows/CI/badge.svg)](https://github.com/benedictchen/holographic-memory/actions)
-[![PyPI version](https://badge.fury.io/py/holographic-memory.svg)](https://badge.fury.io/py/holographic-memory)
+[![PyPI version](https://badge.fury.io/py/holographic_memory.svg)](https://badge.fury.io/py/holographic_memory)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-Custom%20Non--Commercial-red.svg)](LICENSE)
 
@@ -20,7 +20,7 @@
 ## 📦 Installation
 
 ```bash
-pip install holographic-memory
+pip install holographic_memory
 ```
 
 ## 🚀 Quick Start
