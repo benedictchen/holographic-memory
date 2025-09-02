@@ -32,9 +32,10 @@ test = [
 Funding = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS"
 Sponsor = "https://github.com/sponsors/benedictchen"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = ["--cov=holographic_memory", "--cov-report=term-missing"]
-[tool.hatch.build.targets.wheel]
-py-modules = ["holographic_memory"]
-only-include = ["*.py", "LICENSE", "README.md"]
+pythonpath = ["src"]
+addopts = ["--cov=src/holographic_memory", "--cov-report=term-missing"]
