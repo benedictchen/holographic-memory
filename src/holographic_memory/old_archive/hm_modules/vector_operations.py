@@ -78,6 +78,59 @@ class VectorOperations:
         The fundamental operation of HRR that combines two vectors into one.
         Properties: approximately commutative, distributes over superposition.
         
+        # FIXME: Critical Implementation Issues in bind() - Core HRR Operation
+        #
+        # 1. INCORRECT FFT HANDLING FOR NON-POWER-OF-2 DIMENSIONS
+        #    - FFT is most efficient for power-of-2 dimensions
+        #    - Current implementation doesn't pad or warn about inefficient dimensions
+        #    - May introduce numerical artifacts for arbitrary dimensions
+        #    - Solutions:
+        #      a) Add dimension validation: warn if not power of 2
+        #      b) Implement zero-padding for FFT efficiency
+        #      c) Use different algorithms for small non-power-of-2 vectors
+        #    - Research note: Plate (1995) typically used dimensions like 256, 512, 1024
+        #    - Example:
+        #      ```python
+        #      if not (self.config.vector_dim & (self.config.vector_dim - 1)) == 0:
+        #          warnings.warn("Vector dimension is not power of 2, FFT may be inefficient")
+        #      ```
+        #
+        # 2. MISSING NUMERICAL STABILITY CHECKS
+        #    - No handling of FFT numerical precision issues
+        #    - Complex-to-real conversion may introduce small imaginary components
+        #    - Missing validation that result is actually real
+        #    - Solutions:
+        #      a) Add numerical precision threshold: np.real() with tolerance check
+        #      b) Validate imaginary components are negligible: assert np.max(np.imag(fft_result)) < 1e-10
+        #      c) Implement high-precision binding for critical applications
+        #    - Example:
+        #      ```python
+        #      complex_result = ifft(fft(vec_a) * fft(vec_b))
+        #      if np.max(np.abs(np.imag(complex_result))) > 1e-12:
+        #          warnings.warn("Significant imaginary component in binding result")
+        #      result = np.real(complex_result)
+        #      ```
+        #
+        # 3. NO BINDING STRENGTH OR WEIGHTING
+        #    - All bindings have equal strength regardless of semantic importance
+        #    - Missing weighted binding for hierarchical structures
+        #    - No confidence or salience parameters
+        #    - Solutions:
+        #      a) Add binding_weight parameter: result *= weight
+        #      b) Implement semantic distance-based weighting
+        #      c) Add contextual binding strength modulation
+        #    - Research basis: Cognitive systems have variable binding strengths
+        #
+        # 4. MISSING COMMUTATIVITY VALIDATION
+        #    - HRR binding should be approximately commutative: a⊗b ≈ b⊗a
+        #    - No validation or measurement of commutativity error
+        #    - Should track and report binding quality metrics
+        #    - Solutions:
+        #      a) Add commutativity test: similarity(bind(a,b), bind(b,a))
+        #      b) Track binding quality metrics over time
+        #      c) Implement binding diagnostics for debugging
+        #    - Critical for validating HRR implementation correctness
+        
         Parameters:
         -----------
         vec_a, vec_b : np.ndarray

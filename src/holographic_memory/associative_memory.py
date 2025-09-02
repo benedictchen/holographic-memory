@@ -5,6 +5,231 @@ Based on: Plate (1995) "Holographic Reduced Representations"
 
 Implements associative cleanup mechanisms for noisy holographic memory retrieval,
 including auto-associative and hetero-associative memory networks.
+
+# FIXME: Critical Research Accuracy Issues Based on Plate (1995) "Holographic Reduced Representations"
+#
+# 1. MISSING CORRELATION-BASED CLEANUP MEMORY (Section IV, page 628-630)
+#    - Paper emphasizes: "cleanup is essential for practical HRR systems"
+#    - Current implementation uses weight matrices but misses correlation-based cleanup
+#    - Plate's method: C = Σᵢ pᵢ ⊗ pᵢ where pᵢ are prototype vectors (clean patterns)
+#    - Missing: proper correlation matrix construction for cleanup
+#    - Research basis: Section IV "Cleanup", page 628; "cleanup memory stores a set of prototype vectors"
+#    - Solutions:
+#      a) Implement correlation-based cleanup: cleanup_result = argmax_p (p · query_vector)
+#      b) Add prototype-based cleanup memory with proper correlation storage
+#      c) Implement threshold-based cleanup decision with fallback to approximation
+#      d) Add cleanup confidence based on correlation strength
+#    - CODE REVIEW SUGGESTION - Replace weight matrices with correlation-based cleanup:
+#      ```python
+#      def correlation_cleanup(self, query: np.ndarray, confidence_threshold: float = 0.7) -> Tuple[np.ndarray, float]:
+#          """Proper correlation-based cleanup following Plate (1995) Section IV"""
+#          if not hasattr(self, 'cleanup_prototypes') or len(self.cleanup_prototypes) == 0:
+#              return query, 0.0
+#          
+#          best_correlation = -1
+#          best_prototype = None
+#          best_similarity = 0.0
+#          
+#          # Normalize query for proper correlation calculation
+#          query_norm = query / (np.linalg.norm(query) + 1e-10)
+#          
+#          for prototype in self.cleanup_prototypes:
+#              prototype_norm = prototype / (np.linalg.norm(prototype) + 1e-10)
+#              # Correlation = normalized dot product
+#              correlation = np.dot(query_norm, prototype_norm)
+#              
+#              if correlation > best_correlation:
+#                  best_correlation = correlation
+#                  best_prototype = prototype
+#                  best_similarity = correlation
+#          
+#          # Return cleaned result with confidence score
+#          if best_similarity > confidence_threshold:
+#              return best_prototype, best_similarity
+#          else:
+#              # Partial cleanup: weighted blend of query and best match
+#              blend_weight = best_similarity  # Weight by similarity strength
+#              blended = blend_weight * best_prototype + (1 - blend_weight) * query
+#              return blended, best_similarity
+#      
+#      def build_cleanup_memory(self, prototype_vectors: List[np.ndarray]):
+#          """Build correlation matrix C = Σᵢ pᵢ ⊗ pᵢ as described in Section IV"""
+#          self.cleanup_prototypes = []
+#          
+#          for prototype in prototype_vectors:
+#              # Ensure prototype follows N(0, 1/n) distribution
+#              n = len(prototype)
+#              prototype_normalized = prototype / np.sqrt(np.sum(prototype**2) / n)
+#              self.cleanup_prototypes.append(prototype_normalized)
+#          
+#          print(f"Built cleanup memory with {len(self.cleanup_prototypes)} prototypes")
+#      ```
+#
+# 2. INCORRECT ITERATIVE CLEANUP CONVERGENCE (Section IV, page 629)
+#    - Paper notes: "cleanup can be applied iteratively" but warns about oscillation
+#    - Current iterative cleanup lacks proper convergence guarantees
+#    - Missing: oscillation detection and prevention mechanisms
+#    - Missing: energy function to ensure convergence to local minimum
+#    - Research basis: Section IV "Cleanup", page 629; discussion of iterative application
+#    - Solutions:
+#      a) Implement energy function E = -Σᵢⱼ wᵢⱼsᵢsⱼ to monitor convergence
+#      b) Add oscillation detection: track history of states and detect cycles
+#      c) Implement damped updates: new_state = α*recalled + (1-α)*current_state
+#      d) Add maximum iteration limits with graceful degradation
+#    - CODE REVIEW SUGGESTION - Add proper convergence monitoring and oscillation detection:
+#      ```python
+#      def iterative_cleanup_with_convergence(self, vector: np.ndarray, max_iterations: int = 10, 
+#                                           convergence_threshold: float = 1e-6, 
+#                                           damping_factor: float = 0.8) -> Tuple[np.ndarray, Dict[str, Any]]:
+#          """Iterative cleanup with proper convergence guarantees"""
+#          states_history = []
+#          energies = []
+#          current_vector = vector.copy()
+#          
+#          convergence_info = {
+#              'converged': False,
+#              'oscillation_detected': False,
+#              'final_energy': 0.0,
+#              'iterations_used': 0,
+#              'energy_trajectory': []
+#          }
+#          
+#          for iteration in range(max_iterations):
+#              # Store state for oscillation detection
+#              state_key = tuple(np.round(current_vector, decimals=8))
+#              if state_key in states_history:
+#                  convergence_info['oscillation_detected'] = True
+#                  print(f"Oscillation detected at iteration {iteration}")
+#                  break
+#              
+#              states_history.append(state_key)
+#              
+#              # Compute energy E = -Σᵢⱼ wᵢⱼsᵢsⱼ (Hopfield-style energy function)
+#              energy_before = self.compute_hopfield_energy(current_vector)
+#              energies.append(energy_before)
+#              
+#              # Single cleanup step
+#              cleaned_vector, confidence = self.correlation_cleanup(current_vector)
+#              
+#              # Damped update to prevent oscillations: new = α*cleaned + (1-α)*current
+#              damped_vector = damping_factor * cleaned_vector + (1 - damping_factor) * current_vector
+#              
+#              # Check for convergence
+#              change_magnitude = np.linalg.norm(damped_vector - current_vector)
+#              if change_magnitude < convergence_threshold:
+#                  convergence_info['converged'] = True
+#                  current_vector = damped_vector
+#                  break
+#              
+#              # Energy-based early stopping
+#              energy_after = self.compute_hopfield_energy(damped_vector)
+#              if len(energies) > 1 and energy_after > energy_before + convergence_threshold:
+#                  print(f"Energy increase detected: {energy_before:.6f} -> {energy_after:.6f}")
+#                  break  # Energy increased, likely diverging
+#              
+#              current_vector = damped_vector
+#              convergence_info['iterations_used'] = iteration + 1
+#          
+#          convergence_info['final_energy'] = self.compute_hopfield_energy(current_vector)
+#          convergence_info['energy_trajectory'] = energies
+#          
+#          return current_vector, convergence_info
+#      
+#      def compute_hopfield_energy(self, vector: np.ndarray) -> float:
+#          """Compute Hopfield-style energy function for convergence monitoring"""
+#          if not hasattr(self, 'cleanup_prototypes') or len(self.cleanup_prototypes) == 0:
+#              return 0.0
+#          
+#          # Energy = -Σᵢ (vᵢ · pᵢ)² where pᵢ are stored prototypes
+#          total_energy = 0.0
+#          for prototype in self.cleanup_prototypes:
+#              overlap = np.dot(vector, prototype)
+#              total_energy -= overlap ** 2
+#          
+#          return total_energy
+#      ```
+#
+# 3. MISSING CAPACITY-AWARE ASSOCIATIVE STORAGE (Section IX, page 642-648)
+#    - Paper provides associative memory capacity bounds: C ≈ n/(4 log n) for auto-associative
+#    - Current implementation lacks capacity monitoring for associative networks
+#    - Missing: capacity estimation specific to auto-associative vs hetero-associative storage
+#    - Missing: degradation detection when exceeding capacity limits
+#    - Research basis: Section IX "Capacity", page 642; different bounds for different memory types
+#    - Solutions:
+#      a) Implement capacity formula: auto_capacity = n/(4*log(n)), hetero_capacity = n/(2*log(n))
+#      b) Add capacity monitoring and warnings when approaching limits
+#      c) Implement selective forgetting based on trace strength and access patterns
+#      d) Add capacity-aware storage that rejects patterns when at capacity
+#    - Example:
+#      ```python
+#      def check_associative_capacity(self) -> Dict[str, Any]:
+#          auto_capacity = int(self.vector_dim / (4 * np.log(self.vector_dim)))
+#          hetero_capacity = int(self.vector_dim / (2 * np.log(self.vector_dim)))
+#          return {
+#              'auto_associative_capacity': auto_capacity,
+#              'hetero_associative_capacity': hetero_capacity,
+#              'current_auto_patterns': len([t for t in self.memory_traces.values() if self.is_auto_associative(t)]),
+#              'current_hetero_patterns': len([t for t in self.memory_traces.values() if not self.is_auto_associative(t)])
+#          }
+#      ```
+#
+# 4. INADEQUATE NOISE TOLERANCE ANALYSIS (Section VIII, page 638-641)
+#    - Paper analyzes: performance under various noise conditions and signal-to-noise ratios
+#    - Current noise tolerance is hard-coded without theoretical basis
+#    - Missing: noise tolerance based on vector dimensionality and storage capacity
+#    - Missing: SNR-based cleanup thresholds derived from theoretical bounds
+#    - Research basis: Section VIII "Noisy Conditions", page 638; SNR analysis
+#    - Solutions:
+#      a) Implement SNR-based noise tolerance: threshold ∝ √(S/N) where S=signal, N=noise
+#      b) Add dimensionality-dependent noise bounds: higher dimensions → better noise tolerance
+#      c) Implement adaptive thresholds based on current memory load
+#      d) Add noise variance estimation and adaptive cleanup strategies
+#    - Example:
+#      ```python
+#      def compute_snr_threshold(self, signal_power: float, noise_variance: float) -> float:
+#          # Based on Plate's analysis: threshold should scale with √(S/N)
+#          snr = signal_power / noise_variance
+#          base_threshold = 1.0 / np.sqrt(self.vector_dim)  # Dimensionality scaling
+#          return base_threshold * np.sqrt(snr)
+#      ```
+#
+# 5. MISSING GRACEFUL DEGRADATION STRATEGIES (Section VIII, page 640-641)
+#    - Paper discusses: system behavior when cleanup fails or memory is corrupted
+#    - Current implementation lacks fallback strategies for cleanup failure
+#    - Missing: partial match strategies when no prototype exceeds threshold
+#    - Missing: confidence-weighted blending of multiple prototype matches
+#    - Research basis: Section VIII "Noisy Conditions", page 640; discussion of failure modes
+#    - Solutions:
+#      a) Implement confidence-weighted prototype blending for ambiguous cases
+#      b) Add partial match extraction: return components that exceed threshold
+#      c) Implement progressive relaxation: reduce threshold if no matches found
+#      d) Add "don't know" responses with uncertainty quantification
+#    - Example:
+#      ```python
+#      def graceful_cleanup(self, query: np.ndarray) -> CleanupResult:
+#          matches = self.find_all_matches_above_threshold(query, self.cleanup_threshold)
+#          if matches:
+#              return self.blend_matches(matches)
+#          else:
+#              # Progressive relaxation
+#              relaxed_matches = self.find_all_matches_above_threshold(query, self.cleanup_threshold * 0.5)
+#              if relaxed_matches:
+#                  return self.blend_matches(relaxed_matches, confidence_penalty=0.5)
+#              else:
+#                  return CleanupResult(query, confidence=0.0, status="no_cleanup_possible")
+#      ```
+#
+# 6. INCORRECT HETERO-ASSOCIATIVE RETRIEVAL IMPLEMENTATION (Section II, page 624-625)
+#    - Paper specifies: hetero-associative retrieval should use correlation: v = M ⊛ k
+#    - Current implementation uses matrix multiplication instead of circular correlation
+#    - Missing: proper circular correlation for key-value retrieval
+#    - Missing: distinction between circular convolution storage and correlation retrieval
+#    - Research basis: Section II "Basic Operations", page 624; Equation (4)
+#    - Solutions:
+#      a) Implement circular correlation for retrieval: retrieved = circular_correlation(memory, key)
+#      b) Separate storage (convolution) from retrieval (correlation) operations
+#      c) Add proper memory matrix construction using circular convolution
+#      d) Implement key-value binding using ⊗ and unbinding using ⊘
 """
 
 import numpy as np
@@ -13,7 +238,8 @@ from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 import logging
 
-from .holographic_memory import HolographicMemory, HRRMemoryItem
+from .hm_modules.holographic_core import HolographicMemory, HolographicMemoryCore
+from .hm_modules.configuration import HRRMemoryItem
 
 @dataclass
 class MemoryTrace:

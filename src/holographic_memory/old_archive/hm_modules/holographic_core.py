@@ -98,7 +98,57 @@ class HolographicMemoryCore:
         return self.memory_manager.create_vector(name, vector, metadata)
     
     def bind(self, vec_a: Union[str, np.ndarray], vec_b: Union[str, np.ndarray]) -> np.ndarray:
-        """Circular convolution binding operation (⊗)"""
+        """Circular convolution binding operation (⊗)
+        
+        # FIXME: Critical Issues in bind() Method - Core HRR Operation
+        #
+        # 1. MISSING CIRCULAR CONVOLUTION VALIDATION
+        #    - No validation that vectors are suitable for circular convolution
+        #    - Missing checks for vector length compatibility
+        #    - Should validate that vectors are normalized if required
+        #    - Solutions:
+        #      a) Add vector validation: self._validate_hrr_vectors(a, b)
+        #      b) Check dimension compatibility before FFT operations
+        #      c) Add automatic normalization option for binding
+        #    - Research note: Plate (1995) emphasized proper normalization for HRR
+        #    - Example:
+        #      ```python
+        #      if len(a) != len(b):
+        #          raise ValueError("HRR binding requires same-dimension vectors")
+        #      if self.config.validate_binding and (np.linalg.norm(a) < 0.9 or np.linalg.norm(a) > 1.1):
+        #          warnings.warn("Vector may not be properly normalized for HRR binding")
+        #      ```
+        #
+        # 2. NO BINDING HISTORY OR PROVENANCE TRACKING
+        #    - HRR binding creates complex compositions that are hard to debug
+        #    - Missing tracking of what was bound with what
+        #    - Should maintain binding history for analysis and unbinding
+        #    - Solutions:
+        #      a) Add binding record: self._record_binding(vec_a, vec_b, result)
+        #      b) Store reverse lookup: bound_vector -> (component_a, component_b)
+        #      c) Implement binding tree visualization
+        #    - Critical for complex cognitive architectures using nested bindings
+        #
+        # 3. MISSING CAPACITY-AWARE BINDING
+        #    - No consideration of memory capacity limits
+        #    - Binding can degrade with too many superposed elements
+        #    - Should warn when approaching capacity limits
+        #    - Solutions:
+        #      a) Check current memory load before binding
+        #      b) Add capacity warnings: if load > threshold: warn_capacity()
+        #      c) Implement graceful degradation strategies
+        #    - Research basis: HRR has finite capacity that affects binding quality
+        #
+        # 4. NO ALTERNATIVE BINDING OPERATORS
+        #    - Only supports circular convolution, missing other HRR variants
+        #    - Should support alternative binding: XOR, multiplication, etc.
+        #    - Missing support for structured binding (e.g., position-sensitive)
+        #    - Solutions:
+        #      a) Add binding_type parameter: bind(a, b, method='circular_conv')
+        #      b) Support: 'circular_conv', 'xor', 'multiplication', 'permutation'
+        #      c) Implement hybrid binding for different data types
+        #    - Modern HRR research uses multiple binding operators
+        """
         a = self._get_vector(vec_a)
         b = self._get_vector(vec_b)
         return self.vector_ops.bind(a, b)

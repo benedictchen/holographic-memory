@@ -5,6 +5,142 @@ Based on: Plate (1995) "Holographic Reduced Representations"
 
 Implements compositional data structures and hierarchical representations
 using circular convolution binding for complex symbolic structures.
+
+# FIXME: Critical Research Accuracy Issues Based on Plate (1995) "Holographic Reduced Representations"
+#
+# 1. MISSING REDUCED REPRESENTATIONS ENCODING (Section V, page 631-633)
+#    - Paper's key innovation: "reduced representation" that compresses complex structures
+#    - Current implementation creates full-dimensional bindings without reduction
+#    - Plate's method: use cleanup memory to map complex structures to known reduced forms
+#    - Missing: systematic reduction from full compositional representation to compact form
+#    - Research basis: Section V "Reduced Representations", page 631; Figure 2, page 632
+#    - Solutions:
+#      a) Implement cleanup memory with threshold-based reduction: if similarity > θ, use reduced form
+#      b) Add reduction_factor parameter for controlled compression
+#      c) Create reduced vocabulary of common compositional patterns
+#      d) Implement hierarchical reduction: complex → intermediate → reduced forms
+#    - Example implementation:
+#      ```python
+#      def create_reduced_representation(self, full_vector: np.ndarray, threshold: float = 0.7) -> np.ndarray:
+#          # Find best match in reduced vocabulary
+#          best_match, similarity = self.reduced_cleanup.query(full_vector)
+#          if similarity > threshold:
+#              return self.reduced_vocabulary[best_match]
+#          else:
+#              # Add new reduced form to vocabulary
+#              reduced_form = self.compress_vector(full_vector)
+#              self.reduced_vocabulary[len(self.reduced_vocabulary)] = reduced_form
+#              return reduced_form
+#      ```
+#
+# 2. INADEQUATE CLEANUP MEMORY INTEGRATION (Section IV, page 628-630)
+#    - Paper emphasizes: "cleanup is essential" for practical HRR systems
+#    - Current implementation has basic cleanup but misses systematic cleanup architecture
+#    - Missing: dedicated cleanup memory for compositional structures
+#    - Missing: iterative cleanup for deeply nested structures
+#    - Missing: context-sensitive cleanup that considers structure type
+#    - Research basis: Section IV "Cleanup", page 628; "The success of the method depends critically on cleanup"
+#    - Solutions:
+#      a) Implement multi-stage cleanup: local cleanup → structural cleanup → global cleanup
+#      b) Add structure-specific cleanup memories for sequences, trees, records separately
+#      c) Implement iterative cleanup with convergence detection
+#      d) Add cleanup confidence scoring and fallback strategies
+#    - Example:
+#      ```python
+#      def cleanup_compositional_structure(self, structure_vector: np.ndarray, 
+#                                         structure_type: StructureType) -> np.ndarray:
+#          # Stage 1: Component cleanup
+#          cleaned_components = self.cleanup_components(structure_vector)
+#          # Stage 2: Structure-specific cleanup  
+#          structure_cleaned = self.structure_cleanup[structure_type].query(cleaned_components)
+#          # Stage 3: Iterative refinement
+#          return self.iterative_cleanup(structure_cleaned, max_iterations=5)
+#      ```
+#
+# 3. MISSING ANALOGY AND SIMILARITY OPERATIONS (Section VI, page 633-636)
+#    - Paper demonstrates: "A is to B as C is to D" analogical reasoning with HRRs
+#    - Current implementation lacks analogy computation for compositional structures
+#    - Missing: structural analogy detection between different composition types
+#    - Missing: similarity metrics that consider compositional relationships
+#    - Research basis: Section VI "Analogies", page 633; Equation (15) analogy formula
+#    - Solutions:
+#      a) Implement analogy formula: D ≈ C ⊛ (B ⊛ A⁻¹) using circular correlation
+#      b) Add structural similarity that compares role-filler relationships
+#      c) Implement compositional transformation detection
+#      d) Add analogical completion for partial structures
+#    - Example:
+#      ```python
+#      def compute_analogy(self, A: np.ndarray, B: np.ndarray, C: np.ndarray) -> np.ndarray:
+#          # A:B :: C:? → ? = C ⊛ (B ⊛ A⁻¹)  [Equation 15]
+#          A_inverse = self.vsa.invert(A)  # A⁻¹ using circular correlation
+#          transformation = self.vsa.unbind(B, A_inverse)  # B ⊛ A⁻¹
+#          return self.vsa.unbind(C, transformation)  # C ⊛ (B ⊛ A⁻¹)
+#      ```
+#
+# 4. INCORRECT ROLE-FILLER BINDING IMPLEMENTATION (Section II-C, page 625)
+#    - Paper specifies: role-filler binding should preserve statistical independence
+#    - Current binding doesn't ensure proper independence between roles and fillers
+#    - Missing: verification that roles are approximately orthogonal
+#    - Missing: filler normalization to maintain statistical properties
+#    - Research basis: Section II-C "Binding and Unbinding", page 625
+#    - Solutions:
+#      a) Implement role orthogonality checks during symbol creation
+#      b) Add filler normalization: ensure ||f|| = 1 and mean(f) ≈ 0
+#      c) Verify binding produces approximately unbiased distribution
+#      d) Add role-filler independence testing
+#    - Example:
+#      ```python
+#      def create_orthogonal_role(self, role_name: str, existing_roles: List[np.ndarray]) -> np.ndarray:
+#          max_attempts = 100
+#          for _ in range(max_attempts):
+#              candidate = self.create_random_symbol(role_name, "role").vector
+#              orthogonality_ok = all(abs(np.dot(candidate, existing)) < 0.1 for existing in existing_roles)
+#              if orthogonality_ok:
+#                  return candidate
+#          raise ValueError(f"Could not create orthogonal role {role_name}")
+#      ```
+#
+# 5. MISSING CAPACITY ANALYSIS AND BOUNDS (Section IX, page 642-648)
+#    - Paper provides capacity formula: C ≈ n/(2 log n) for n-dimensional vectors
+#    - Current implementation has no capacity monitoring or bounds checking
+#    - Missing: capacity estimation for compositional structures
+#    - Missing: degradation detection when approaching capacity limits
+#    - Missing: adaptive strategies when capacity exceeded
+#    - Research basis: Section IX "Capacity", page 642; Theorem 1, page 644
+#    - Solutions:
+#      a) Implement capacity monitoring: track stored items vs. theoretical limit
+#      b) Add capacity-aware composition: warn when approaching C ≈ n/(2 log n)
+#      c) Implement capacity expansion strategies (increase dimensionality)
+#      d) Add graceful degradation with approximate retrieval when over capacity
+#    - Example:
+#      ```python
+#      def estimate_capacity(self) -> int:
+#          # Plate's formula: C ≈ n/(2 log n)
+#          return int(self.vector_dim / (2 * np.log(self.vector_dim)))
+#      
+#      def check_capacity_limits(self) -> Dict[str, Any]:
+#          estimated_capacity = self.estimate_capacity()
+#          current_structures = len(self.structures)
+#          utilization = current_structures / estimated_capacity
+#          return {
+#              'estimated_capacity': estimated_capacity,
+#              'current_structures': current_structures, 
+#              'utilization': utilization,
+#              'approaching_limit': utilization > 0.8
+#          }
+#      ```
+#
+# 6. INADEQUATE ERROR DETECTION AND CORRECTION (Section VIII, page 638-641)
+#    - Paper discusses: error detection through consistency checks
+#    - Current implementation lacks error detection for corrupted compositional structures
+#    - Missing: consistency verification between composed and decomposed structures
+#    - Missing: error correction through redundant encoding
+#    - Research basis: Section VIII "Noisy Conditions", page 638
+#    - Solutions:
+#      a) Implement roundtrip consistency checks: compose → decompose → compare
+#      b) Add redundant encoding with error correction codes
+#      c) Implement noise-tolerant query with confidence intervals
+#      d) Add structure validation that detects corruption
 """
 
 import numpy as np
@@ -14,7 +150,8 @@ from abc import ABC, abstractmethod
 from enum import Enum
 import json
 
-from .holographic_memory import HolographicMemory, HRRMemoryItem
+from .hm_modules.holographic_core import HolographicMemory, HolographicMemoryCore
+from .hm_modules.configuration import HRRMemoryItem
 from .vector_symbolic import VectorSymbolicArchitecture, VSASymbol, VSAOperation
 
 class StructureType(Enum):
