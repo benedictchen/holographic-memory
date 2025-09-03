@@ -109,7 +109,6 @@ including auto-associative and hetero-associative memory networks.
 #              energies.append(energy_before)
 #              
 #              # Single cleanup step
-#              cleaned_vector, confidence = self.correlation_cleanup(current_vector)
 #              
 #              # Damped update to prevent oscillations: new = α*cleaned + (1-α)*current
 #              damped_vector = damping_factor * cleaned_vector + (1 - damping_factor) * current_vector

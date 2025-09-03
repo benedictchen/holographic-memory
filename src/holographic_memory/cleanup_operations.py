@@ -25,7 +25,7 @@ class CleanupOperations:
             # Fallback to simple nearest neighbor if cleanup disabled
             return self._nearest_neighbor_cleanup(noisy_vector, candidates)
         
-        # FIXED: Implement iterative cleanup using auto-associative memory
+        # Implement iterative cleanup using auto-associative memory
         current_vector = noisy_vector.copy()
         
         for iteration in range(max_iterations):

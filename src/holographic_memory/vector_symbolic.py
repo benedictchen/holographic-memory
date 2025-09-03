@@ -14,8 +14,8 @@ from abc import ABC, abstractmethod
 import logging
 from enum import Enum
 
-from .hm_modules.holographic_core import HolographicMemory, HolographicMemoryCore
-from .hm_modules.configuration import HRRMemoryItem
+from .core.holographic_memory import HolographicMemory
+from .configuration import HolographicMemoryConfig
 
 class VSAOperation(Enum):
     """Types of VSA operations"""
@@ -228,8 +228,9 @@ class VectorSymbolicArchitecture:
         vec1 = self._resolve_to_vector(symbol1)
         vec2 = self._resolve_to_vector(symbol2)
         
-        # Use HRR memory's circular convolution
-        result = self.hrr_memory._circular_convolution(vec1, vec2)
+        # Use HRR memory's bind method
+        result_hrr = self.hrr_memory.bind(vec1, vec2)
+        result = result_hrr.data
         
         # Record operation
         self.operation_history.append({
@@ -350,7 +351,8 @@ class VectorSymbolicArchitecture:
         result = vec.copy()
         
         for i in range(n - 1):
-            result = self.hrr_memory._circular_convolution(result, vec)
+            result_hrr = self.hrr_memory.bind(result, vec)
+            result = result_hrr.data
         
         # Record operation
         self.operation_history.append({
@@ -479,12 +481,14 @@ class VectorSymbolicArchitecture:
         if expr.operation == VSAOperation.BIND:
             if len(operand_vectors) != 2:
                 raise ValueError("BIND operation requires exactly 2 operands")
-            result = self.hrr_memory._circular_convolution(operand_vectors[0], operand_vectors[1])
+            result_hrr = self.hrr_memory.bind(operand_vectors[0], operand_vectors[1])
+            result = result_hrr.data
             
         elif expr.operation == VSAOperation.UNBIND:
             if len(operand_vectors) != 2:
                 raise ValueError("UNBIND operation requires exactly 2 operands")
-            result = self.hrr_memory._circular_correlation(operand_vectors[0], operand_vectors[1])
+            result_hrr = self.hrr_memory.unbind(operand_vectors[0], operand_vectors[1])
+            result = result_hrr.data
             
         elif expr.operation == VSAOperation.SUPERPOSE:
             result = np.sum(operand_vectors, axis=0)
@@ -523,10 +527,12 @@ class VectorSymbolicArchitecture:
         vec_c = self._resolve_to_vector(c)
         
         # Extract relation: R = b ⊕ a (unbind a from b)
-        relation = self.hrr_memory._circular_correlation(vec_b, vec_a)
+        relation_hrr = self.hrr_memory.unbind(vec_b, vec_a)
+        relation = relation_hrr.data
         
         # Apply relation to c: d = c ⊛ R (bind c with relation)
-        result = self.hrr_memory._circular_convolution(vec_c, relation)
+        result_hrr = self.hrr_memory.bind(vec_c, relation)
+        result = result_hrr.data
         
         return result
     
