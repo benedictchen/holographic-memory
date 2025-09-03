@@ -4,7 +4,7 @@ Comprehensive Tests for VSA FIXME Solutions
 
 Author: Benedict Chen (benedict@benedictchen.com)
 
-Validation tests for all implemented VSA FIXME solutions:
+Validation tests for VSA implementations:
 - Auto-dimension selection based on capacity requirements
 - Multiple vector distributions and binding operations
 - Research-accurate HRR implementation
