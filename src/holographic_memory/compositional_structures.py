@@ -52,7 +52,7 @@ class CompositionalHRR:
     This class now provides comprehensive research-accurate implementations of
     all critical FIXME issues with modular architecture for maintainability.
     
-    Key Research Contributions Resolved:
+    Key Research Contributions:
     1. ✅ Reduced representations with cleanup memory (Section V, page 631-633)
     2. ✅ Multi-stage cleanup architecture (Section IV, page 628-630)  
     3. ✅ Analogical reasoning capabilities (Section VI, page 633-636)
@@ -217,7 +217,6 @@ class CompositionalHRR:
         return self.structure_primitives.decode_record(record_vector, field_names)
     
     # ========================================================================
-    # ADVANCED FIXME RESOLUTION METHODS (Research-Accurate Implementations)
     # ========================================================================
     
     def create_reduced_representation(self, full_vector: np.ndarray, 
