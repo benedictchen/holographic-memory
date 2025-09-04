@@ -473,7 +473,7 @@ class AnalogyEngine:
         return results[:top_k]
     
     def get_analogy_statistics(self) -> Dict[str, Any]:
-        """Get comprehensive analogy engine statistics"""
+        """Get analogy engine statistics"""
         stats = self.analogy_stats.copy()
         
         if stats["total_analogies"] > 0:

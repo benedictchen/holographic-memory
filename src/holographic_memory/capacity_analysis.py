@@ -124,7 +124,7 @@ Implements Plate 1995 capacity formulas and empirical testing
 #              if noise_level >= critical_noise:
 #                  capacity_curve[noise_level] = 0
 #              else:
-#                  # Linear degradation model (can be refined with more sophisticated models)
+#                  # Linear degradation model (can be refined with other models)
 #                  degradation_factor = 1 - (noise_level / critical_noise)**2
 #                  capacity_curve[noise_level] = int(base_capacity * degradation_factor)
 #          

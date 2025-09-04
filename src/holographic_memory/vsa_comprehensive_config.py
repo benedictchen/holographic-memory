@@ -4,7 +4,7 @@ Vector Symbolic Architecture Comprehensive Configuration System
 
 Author: Benedict Chen (benedict@benedictchen.com)
 
-This module implements ALL VSA FIXME solutions with comprehensive user configuration
+This module implements all VSA research solutions with comprehensive user configuration
 options, allowing researchers to choose between different parameter settings and
 theoretical approaches.
 
@@ -69,7 +69,7 @@ class SimilarityMetric(Enum):
 @dataclass
 class VSAComprehensiveConfig:
     """
-    MASTER CONFIGURATION for ALL VSA FIXME solutions.
+    MASTER CONFIGURATION for all VSA research solutions.
     
     Provides comprehensive control over all aspects of Vector Symbolic Architecture
     implementation, allowing users to choose between research-accurate approaches.
@@ -453,7 +453,7 @@ def validate_vsa_config(config: VSAComprehensiveConfig) -> List[str]:
 
 
 if __name__ == "__main__":
-    print("🧠 VSA Comprehensive Solutions Summary")
+    print("🧠 VSA Configuration Summary")
     print("=" * 50)
     
     solutions = get_available_vsa_solutions()

@@ -48,7 +48,7 @@ class StructureCreationMixin:
         # Compose sequence using positional binding
         sequence_vector = self._compose_sequence(element_vectors)
         
-        # Apply advanced processing if available
+        # Apply processing if available
         if self.cleanup_engine:
             cleanup_result = self.cleanup_engine.cleanup_compositional_structure(
                 sequence_vector, StructureType.SEQUENCE
@@ -149,7 +149,7 @@ class StructureCreationMixin:
         # Superpose all parts
         tree_vector = self.vsa.superpose(*tree_parts)
         
-        # Apply advanced processing if available
+        # Apply processing if available
         if self.cleanup_engine:
             cleanup_result = self.cleanup_engine.cleanup_compositional_structure(
                 tree_vector, StructureType.TREE
@@ -234,7 +234,7 @@ class StructureCreationMixin:
         # Superpose all fields
         record_vector = self.vsa.superpose(*record_parts)
         
-        # Apply advanced processing if available
+        # Apply processing if available
         if self.cleanup_engine:
             cleanup_result = self.cleanup_engine.cleanup_compositional_structure(
                 record_vector, StructureType.RECORD
@@ -333,7 +333,7 @@ class StructureCreationMixin:
         # Superpose all graph components
         graph_vector = self.vsa.superpose(*graph_parts)
         
-        # Apply advanced processing if available
+        # Apply processing if available
         if self.cleanup_engine:
             cleanup_result = self.cleanup_engine.cleanup_compositional_structure(
                 graph_vector, StructureType.GRAPH
@@ -394,7 +394,7 @@ class StructureCreationMixin:
         card_binding = self.vsa.bind("SIZE", card_name)
         set_vector = self.vsa.superpose(set_vector, card_binding)
         
-        # Apply advanced processing if available
+        # Apply processing if available
         if self.cleanup_engine:
             cleanup_result = self.cleanup_engine.cleanup_compositional_structure(
                 set_vector, StructureType.SET
@@ -464,7 +464,7 @@ class StructureCreationMixin:
         size_binding = self.vsa.bind("SIZE", size_name)
         stack_vector = self.vsa.superpose(stack_vector, size_binding)
         
-        # Apply advanced processing if available
+        # Apply processing if available
         if self.cleanup_engine:
             cleanup_result = self.cleanup_engine.cleanup_compositional_structure(
                 stack_vector, StructureType.STACK

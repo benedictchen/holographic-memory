@@ -63,11 +63,11 @@ from .core.compositional_hrr import CompositionalHRR
 from .core.memory_management import MemoryManager, VectorRecord
 
 # ===============================================================================
-# 🔬 NEW: COMPLETE RESEARCH-ACCURATE CLEANUP IMPLEMENTATIONS (Added v2.2.0)
+# 🔬 Plate (1995) correlation-based cleanup implementations
 # ===============================================================================
 
 # Plate (1995) cleanup system implementation
-from .complete_holographic_cleanup import (
+from .plate_correlation_cleanup import (
     CompletePlateCleanupSystem,
     create_plate_1995_cleanup_system,
     create_legacy_compatible_cleanup_system,
@@ -257,11 +257,11 @@ __all__ = [
     "VectorRecord",                # Managed vector record
     
     # ===============================================================================
-    # NEW: Complete Research-Accurate Cleanup System (Added v2.2.0)
+    # Plate (1995) Cleanup System
     # ===============================================================================
     # Plate (1995) cleanup implementations
-    "CompletePlateCleanupSystem",  # Complete cleanup system with all research methods
-    "create_plate_1995_cleanup_system",      # Research-accurate factory
+    "CompletePlateCleanupSystem",  # Plate (1995) cleanup with multiple strategies
+    "create_plate_1995_cleanup_system",      # Plate (1995) implementation factory
     "create_legacy_compatible_cleanup_system", # Backward compatibility factory  
     "create_high_performance_cleanup_system", # Performance-optimized factory
     "EnhancedCleanupResult",       # Enhanced cleanup result with diagnostics

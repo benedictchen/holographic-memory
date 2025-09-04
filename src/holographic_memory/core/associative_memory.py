@@ -360,12 +360,25 @@ class AssociativeMemory:
         return result
     
     def _create_key_vector(self, key: str) -> np.ndarray:
-        """Create a deterministic vector from a string key."""
-        # Simple hash-based approach
-        np.random.seed(hash(key) % (2**32))
-        key_vector = np.random.randn(self.vector_dim)
+        """Create a deterministic vector from a string key using content-based encoding."""
+        # Content-based vector generation (no fake hash features)
+        # Use character-based encoding following Vector Symbolic Architecture principles
+        key_bytes = key.encode('utf-8')
+        
+        # Create deterministic vector from character values
+        key_vector = np.zeros(self.vector_dim)
+        for i, byte_val in enumerate(key_bytes):
+            # Distribute character information across vector dimensions
+            idx = i % self.vector_dim
+            key_vector[idx] += (byte_val / 255.0) * (1.0 / (i + 1))  # Decay by position
+            
+        # Add positional encoding for character order
+        for i in range(len(key)):
+            pos_idx = (i * 7) % self.vector_dim  # Prime number spacing
+            key_vector[pos_idx] += np.sin(i * 0.1) * 0.1
+            
+        # Normalize to unit vector
         key_vector = key_vector / np.linalg.norm(key_vector)
-        np.random.seed()  # Reset seed
         return key_vector
     
     def _update_auto_memory(self, vector: np.ndarray, strength: float):

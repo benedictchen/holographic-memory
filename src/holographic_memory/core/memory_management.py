@@ -407,7 +407,7 @@ class MemoryManager:
         }
     
     def get_statistics(self) -> Dict[str, Any]:
-        """Get comprehensive memory management statistics."""
+        """Get memory management statistics."""
         self._update_memory_stats()
         
         # Calculate derived statistics

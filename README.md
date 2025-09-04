@@ -20,7 +20,7 @@
 
 🌀 **Holographic Reduced Representations for distributed symbolic processing**
 
-Holographic Reduced Representations (HRR) enable the storage and manipulation of symbolic structures in fixed-size distributed representations. This implementation provides Tony Plate's groundbreaking Vector Symbolic Architecture that allows compositional operations on high-dimensional vectors while preserving relational information.
+Holographic Reduced Representations (HRR) enable the storage and manipulation of symbolic structures in fixed-size distributed representations. This implementation provides Tony Plate's Vector Symbolic Architecture that allows compositional operations on high-dimensional vectors while preserving relational information.
 
 **Research Foundation**: Plate, T. A. (1995) - *"Holographic Reduced Representations"*
 

@@ -247,7 +247,7 @@ def plot_memory_statistics(statistics: Dict[str, Any],
                          figsize: Tuple[int, int] = (15, 10),
                          save_path: Optional[str] = None) -> plt.Figure:
     """
-    Plot comprehensive memory system statistics.
+    Plot memory system statistics.
     
     Parameters
     ----------
