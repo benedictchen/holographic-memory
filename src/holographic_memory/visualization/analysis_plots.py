@@ -357,7 +357,7 @@ def plot_dimensionality_analysis(vectors: np.ndarray,
     
     # Plot 2: Intrinsic dimensionality using correlation dimension
     def correlation_dimension(data, max_r=2.0, n_points=20):
-        \"\"\"Estimate correlation dimension using box-counting\"\"\"
+        """Estimate correlation dimension using box-counting"""
         from scipy.spatial.distance import pdist
         
         distances = pdist(data)

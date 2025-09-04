@@ -22,7 +22,7 @@ Author: Benedict Chen (benedict@benedictchen.com)
 #    - CODE REVIEW SUGGESTION:
 #      ```python
 #      def bind_circular_convolution(self, vec1: np.ndarray, vec2: np.ndarray) -> np.ndarray:
-#          """Proper circular convolution binding following Plate (1995) Section II-C"""
+#          '''Proper circular convolution binding following Plate (1995) Section II-C'''
 #          if len(vec1) != len(vec2):
 #              raise ValueError("Vectors must have same length for circular convolution")
 #          
@@ -48,7 +48,7 @@ Author: Benedict Chen (benedict@benedictchen.com)
 #          return result
 #      
 #      def unbind_circular_correlation(self, bound: np.ndarray, probe: np.ndarray) -> np.ndarray:
-#          """Circular correlation unbinding (Section II-E approximate inverse)"""
+#          '''Circular correlation unbinding (Section II-E approximate inverse)'''
 #          # Involution: d_i = c_{-i mod n}
 #          probe_inv = np.concatenate([probe[:1], probe[1:][::-1]])
 #          return self.bind_circular_convolution(bound, probe_inv)

@@ -2,6 +2,11 @@
 🔗 Binding Operation Visualization Functions
 ==========================================
 
+🌀 Holographic Memory Library - Made possible by Benedict Chen
+   benedict@benedictchen.com
+   Support his work: 🍺 Buy him a beer: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS
+   💖 Sponsor: https://github.com/sponsors/benedictchen
+
 This module provides visualization functions for holographic binding operations,
 quality assessment, and binding accuracy analysis based on Plate (1995) HRR theory.
 
@@ -11,8 +16,9 @@ Research-accurate visualizations for:
 - Vector similarity distributions
 - Binding operation fidelity metrics
 
-Author: Benedict Chen (benedict@benedictchen.com)
-Based on: Plate (1995) "Holographic Reduced Representations"
+📚 Research Foundation:
+- Plate, T. (1995). "Holographic Reduced Representations"
+- Circular convolution binding with correlation-based unbinding analysis
 """
 
 import numpy as np

@@ -754,8 +754,8 @@ class CompletePlateCleanupSystem:
             print(f"🗑️ Forgot weakest pattern: {weakest_key}")
     
     def _forget_oldest(self, memory_type: AssociativeMemoryType):
-        """Forget oldest pattern (first stored)"""
-        # Simple implementation - remove first matching pattern
+        """Forget oldest pattern using FIFO memory management"""
+        # FIFO forgetting strategy - remove chronologically first stored pattern
         for key, trace in self.memory_traces.items():
             if ((memory_type == AssociativeMemoryType.AUTO_ASSOCIATIVE and trace.is_auto_associative) or
                 (memory_type == AssociativeMemoryType.HETERO_ASSOCIATIVE and not trace.is_auto_associative)):

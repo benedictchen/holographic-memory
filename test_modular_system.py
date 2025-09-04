@@ -44,8 +44,8 @@ def test_imports():
         return False
 
 def test_basic_functionality():
-    """Test basic HRR functionality"""
-    print("\n🧮 Testing basic HRR functionality...")
+    """Test core HRR operations and vector binding"""
+    print("\n🧮 Testing core HRR operations...")
     
     try:
         from holographic_memory import create_holographic_memory
@@ -72,7 +72,7 @@ def test_basic_functionality():
         return similarity > 0.3
         
     except Exception as e:
-        print(f"  ✗ Basic functionality failed: {e}")
+        print(f"  ✗ Core functionality failed: {e}")
         traceback.print_exc()
         return False
 

@@ -2,10 +2,17 @@
 📈 Vector Visualization Functions
 ================================
 
+🌀 Holographic Memory Library - Made possible by Benedict Chen
+   benedict@benedictchen.com
+   Support his work: 🍺 Buy him a beer: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS
+   💖 Sponsor: https://github.com/sponsors/benedictchen
+
 This module provides visualization functions for holographic vectors,
 including distribution plots, similarity matrices, and dimensionality analysis.
 
-Author: Benedict Chen (benedict@benedictchen.com)
+📚 Research Foundation:
+- Plate, T. (1995). "Holographic Reduced Representations"
+- Vector visualization for high-dimensional holographic structures
 """
 
 import numpy as np

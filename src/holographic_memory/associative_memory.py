@@ -22,7 +22,7 @@ including auto-associative and hetero-associative memory networks.
 #    - CODE REVIEW SUGGESTION - Replace weight matrices with correlation-based cleanup:
 #      ```python
 #      def correlation_cleanup(self, query: np.ndarray, confidence_threshold: float = 0.7) -> Tuple[np.ndarray, float]:
-#          """Proper correlation-based cleanup following Plate (1995) Section IV"""
+#          '''Proper correlation-based cleanup following Plate (1995) Section IV'''
 #          if not hasattr(self, 'cleanup_prototypes') or len(self.cleanup_prototypes) == 0:
 #              return query, 0.0
 #          
@@ -53,7 +53,7 @@ including auto-associative and hetero-associative memory networks.
 #              return blended, best_similarity
 #      
 #      def build_cleanup_memory(self, prototype_vectors: List[np.ndarray]):
-#          """Build correlation matrix C = Σᵢ pᵢ ⊗ pᵢ as described in Section IV"""
+#          '''Build correlation matrix C = Sum_i p_i tensor p_i as described in Section IV'''
 #          self.cleanup_prototypes = []
 #          
 #          for prototype in prototype_vectors:
