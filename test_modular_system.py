@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 def test_imports():
     """Test that all modules can be imported correctly"""
-    print("🔍 Testing module imports...")
+    # Removed print spam: "...
     
     try:
         # Test main imports
@@ -214,7 +214,7 @@ def test_analogical_reasoning():
 
 def test_capacity_analysis():
     """Test capacity analysis and benchmarking"""
-    print("\n📊 Testing capacity analysis...")
+    # Removed print spam: "\n...
     
     try:
         from holographic_memory import create_holographic_memory
@@ -368,10 +368,10 @@ def run_comprehensive_test():
         print(f"{status} {test_name}")
     
     success_rate = passed_tests / len(tests)
-    print(f"\n🎯 Overall Success Rate: {passed_tests}/{len(tests)} ({success_rate:.1%})")
+    # Removed print spam: f"\n...} ({success_rate:.1%})")
     
     if success_rate >= 0.8:
-        print("🚀 MODULARIZATION SUCCESSFUL! All critical systems working.")
+        # # Removed print spam: "...
     elif success_rate >= 0.6:
         print("⚠️  MODULARIZATION MOSTLY SUCCESSFUL. Some issues to address.")
     else:

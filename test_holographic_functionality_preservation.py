@@ -52,7 +52,7 @@ def test_existing_imports_preserved():
             MemoryManager,
             VectorRecord
         )
-        print("✅ Core holographic memory imports preserved")
+        # # Removed print spam: "...
         
         # Test configuration imports
         from holographic_memory import (
@@ -68,7 +68,7 @@ def test_existing_imports_preserved():
             MemoryType,
             StorageFormat
         )
-        print("✅ Configuration system imports preserved")
+        # # Removed print spam: "...
         
         # Test utility imports
         from holographic_memory import (
@@ -80,7 +80,7 @@ def test_existing_imports_preserved():
             circular_convolution,
             circular_correlation
         )
-        print("✅ Utility function imports preserved")
+        # # Removed print spam: "...
         
         return True
         
@@ -104,7 +104,7 @@ def test_new_implementations_available():
             CapacityInfo,
             EnhancedMemoryTrace
         )
-        print("✅ Complete cleanup system imports available")
+        # # Removed print spam: "...
         
         # Test configuration system imports
         from holographic_memory import (
@@ -118,7 +118,7 @@ def test_new_implementations_available():
             create_high_performance_config,
             create_research_validation_config
         )
-        print("✅ Complete configuration system imports available")
+        # # Removed print spam: "...
         
         return True
         
@@ -149,14 +149,14 @@ def test_plate_1995_research_accuracy():
         assert method_summary['cleanup_method'] == 'correlation_based'
         assert 'Plate (1995) Section IV' in method_summary['research_basis']
         
-        print("✅ Research-accurate configuration validated")
+        # # Removed print spam: "...
         
         # Test correlation-based cleanup
         prototype_vectors = [np.random.randn(vector_dim) for _ in range(5)]
         prototype_labels = [f"concept_{i}" for i in range(5)]
         
         cleanup_system.build_correlation_cleanup_memory(prototype_vectors, prototype_labels)
-        print("✅ Correlation cleanup memory built successfully")
+        # # Removed print spam: "...
         
         # Test cleanup with clean input (should have high confidence)
         clean_input = prototype_vectors[0].copy()
@@ -164,14 +164,14 @@ def test_plate_1995_research_accuracy():
         
         assert result.confidence > 0.9, f"Clean input should have high confidence: {result.confidence}"
         assert result.converged, "Clean input cleanup should converge"
-        print(f"✅ Clean input cleanup: confidence={result.confidence:.3f}")
+        # Removed print spam: f"...
         
         # Test cleanup with noisy input  
         noisy_input = clean_input + 0.1 * np.random.randn(vector_dim)
         result = cleanup_system.correlation_cleanup(noisy_input)
         
         assert result.confidence > 0.3, f"Noisy input should have reasonable confidence: {result.confidence}"
-        print(f"✅ Noisy input cleanup: confidence={result.confidence:.3f}")
+        # Removed print spam: f"...
         
         return True
         
@@ -182,7 +182,7 @@ def test_plate_1995_research_accuracy():
 
 def test_capacity_aware_storage():
     """Test capacity-aware storage based on Plate (1995) Section IX"""
-    print("\n📊 Testing Capacity-Aware Storage...")
+    # Removed print spam: "\n...
     
     try:
         from holographic_memory import create_plate_1995_cleanup_system
@@ -197,8 +197,8 @@ def test_capacity_aware_storage():
         expected_auto = int(vector_dim / (4 * np.log(vector_dim)))
         expected_hetero = int(vector_dim / (2 * np.log(vector_dim)))
         
-        print(f"📊 Theoretical capacities - Auto: {capacity_info.auto_associative_capacity}, Hetero: {capacity_info.hetero_associative_capacity}")
-        print(f"📊 Expected capacities - Auto: {expected_auto}, Hetero: {expected_hetero}")
+        # Removed print spam: f"...
+        # Removed print spam: f"...
         
         # Test adding patterns up to capacity
         for i in range(min(5, capacity_info.auto_associative_capacity)):
@@ -211,8 +211,8 @@ def test_capacity_aware_storage():
         updated_capacity = cleanup_system.check_associative_capacity()
         assert updated_capacity.current_auto_patterns > 0, "Should have stored some patterns"
         
-        print(f"✅ Stored {updated_capacity.current_auto_patterns} auto-associative patterns")
-        print(f"✅ Capacity utilization: {updated_capacity.utilization_auto:.1%}")
+        # Removed print spam: f"...
+        # Removed print spam: f"...
         
         return True
         
@@ -263,7 +263,7 @@ def test_convergence_strategies():
             assert result is not None, f"Convergence strategy {strategy} should return result"
             assert isinstance(result.diagnostics, dict), "Should include diagnostics"
             
-            print(f"✅ {strategy.value}: iterations={result.iterations_used}, converged={result.converged}")
+            # Removed print spam: f"...
         
         return True
         
@@ -310,7 +310,7 @@ def test_noise_tolerance_strategies():
             
             assert 0.0 <= threshold <= 1.0, f"Threshold should be in [0,1]: {threshold}"
             
-            print(f"✅ {strategy.value}: SNR threshold={threshold:.3f}")
+            # Removed print spam: f"...
         
         return True
         
@@ -354,10 +354,10 @@ def test_graceful_degradation():
         assert result is not None, "Graceful cleanup should always return a result"
         assert 'relaxation_applied' in result.diagnostics, "Should apply relaxation"
         
-        print(f"✅ Graceful degradation: method={result.method_used}, confidence={result.confidence:.3f}")
+        # Removed print spam: f"...
         
         if 'relaxation_factor' in result.diagnostics:
-            print(f"✅ Applied relaxation factor: {result.diagnostics['relaxation_factor']}")
+            # Removed print spam: f"...
         
         return True
         
@@ -382,7 +382,7 @@ def test_backward_compatibility():
         assert legacy_system.config.fallback_to_legacy == True
         assert legacy_system.config.preserve_existing_api == True
         
-        print("✅ Legacy compatibility configuration correct")
+        # # Removed print spam: "...
         
         # Test that cleanup still works (even if using legacy methods)
         test_vector = np.random.randn(vector_dim)
@@ -391,7 +391,7 @@ def test_backward_compatibility():
         assert result is not None, "Legacy cleanup should return result"
         assert result.method_used == 'legacy_weight_matrix', f"Should use legacy method: {result.method_used}"
         
-        print("✅ Legacy cleanup method functional")
+        # # Removed print spam: "...
         
         # Test that all existing method signatures are preserved
         # (This would catch any breaking changes to public API)
@@ -434,7 +434,7 @@ def test_configuration_flexibility():
         validation = custom_config.validate_config()
         assert validation['valid'], f"Custom configuration should be valid: {validation['issues']}"
         
-        print("✅ Custom configuration validated")
+        # # Removed print spam: "...
         
         # Test configuration summaries
         method_summary = validation['method_summary']
@@ -442,7 +442,7 @@ def test_configuration_flexibility():
         assert method_summary['convergence_strategy'] == 'damped_update'
         assert method_summary['noise_tolerance'] == 'snr_adaptive'
         
-        print("✅ Configuration method summary correct")
+        # # Removed print spam: "...
         
         # Test factory function configurations
         from holographic_memory import (
@@ -462,7 +462,7 @@ def test_configuration_flexibility():
         for name, config in configs.items():
             validation = config.validate_config()
             assert validation['valid'], f"{name} config should be valid: {validation['issues']}"
-            print(f"✅ {name} factory configuration valid")
+            # Removed print spam: f"...
         
         return True
         
@@ -473,7 +473,7 @@ def test_configuration_flexibility():
 
 def test_all_implementations_working():
     """Test that all implementations are working correctly"""
-    print("\n🔧 Testing Implementation Functionality...")
+    # Removed print spam: "\n...
     
     try:
         from holographic_memory import CompletePlateCleanupSystem, HolographicCleanupConfig
@@ -490,35 +490,35 @@ def test_all_implementations_working():
         test_vector = np.random.randn(vector_dim)
         result = cleanup_system.correlation_cleanup(test_vector)
         assert result.method_used.startswith('correlation'), "Should use correlation method"
-        print("✅ Research solution configured")
+        # # Removed print spam: "...
         
         # 2. Iterative cleanup with convergence
         result = cleanup_system.iterative_cleanup_with_convergence(test_vector)
         assert result.method_used == 'iterative_convergence', "Should use iterative method"
         assert 'converged' in result.diagnostics, "Should track convergence"
-        print("✅ Research solution configured")
+        # # Removed print spam: "...
         
         # 3. Capacity-aware storage
         capacity_info = cleanup_system.check_associative_capacity()
         assert capacity_info.auto_associative_capacity > 0, "Should compute auto capacity"
         assert capacity_info.hetero_associative_capacity > 0, "Should compute hetero capacity"
-        print("✅ Research solution configured")
+        # # Removed print spam: "...
         
         # 4. SNR-based noise tolerance
         threshold = cleanup_system.compute_snr_threshold(1.0, 0.1)
         assert threshold > 0, "Should compute SNR threshold"
-        print("✅ Research solution configured")
+        # # Removed print spam: "...
         
         # 5. Graceful degradation
         result = cleanup_system.graceful_cleanup(test_vector)
         assert result is not None, "Graceful cleanup should always work"
-        print("✅ Research solution configured")
+        # # Removed print spam: "...
         
         # 6. Hetero-associative retrieval
         cleanup_system.add_memory_pattern("test_key", np.random.randn(vector_dim), np.random.randn(vector_dim))
         result = cleanup_system.hetero_associative_retrieval(np.random.randn(vector_dim))
         assert result.method_used in ['circular_correlation', 'hetero_no_match'], f"Should use proper hetero method: {result.method_used}"
-        print("✅ Research solution configured")
+        # # Removed print spam: "...
         
         return True
         
@@ -529,7 +529,7 @@ def test_all_implementations_working():
 
 def test_master_cleanup_method():
     """Test the master cleanup method with method selection"""
-    print("\n🎯 Testing Master Cleanup Method...")
+    # Removed print spam: "\n...
     
     try:
         from holographic_memory import (
@@ -553,20 +553,20 @@ def test_master_cleanup_method():
         # Test default method
         result = cleanup_system.cleanup(test_vector)
         assert result is not None, "Master cleanup should work"
-        print(f"✅ Default method: {result.method_used}")
+        # Removed print spam: f"...
         
         # Test method override
         result = cleanup_system.cleanup(test_vector, method=CleanupMethod.ITERATIVE_HYBRID)
         assert result.method_used == 'iterative_convergence', f"Should use overridden method: {result.method_used}"
-        print(f"✅ Method override: {result.method_used}")
+        # Removed print spam: f"...
         
         # Test fallback behavior
         try:
             result = cleanup_system.cleanup(test_vector, method=CleanupMethod.HOPFIELD_NETWORK)
-            print(f"✅ Hopfield method: {result.method_used}")
+            # Removed print spam: f"...
         except Exception:
             # Should fall back to legacy if Hopfield fails
-            print("✅ Fallback behavior working (expected for incomplete Hopfield)")
+            # # Removed print spam: "...")
         
         return True
         
@@ -577,7 +577,7 @@ def test_master_cleanup_method():
 
 def run_all_tests():
     """Run all functionality preservation and enhancement tests"""
-    print("🚀 HOLOGRAPHIC MEMORY - FUNCTIONALITY PRESERVATION & ENHANCEMENT TEST SUITE")
+    # # Removed print spam: "...
     print("=" * 80)
     
     all_passed = True
@@ -628,7 +628,7 @@ def run_all_tests():
     all_passed &= test_results['master_cleanup']
     
     print("\n" + "=" * 80)
-    print("📊 TEST RESULTS SUMMARY:")
+    # Removed print spam: "...
     print("=" * 80)
     
     for test_name, passed in test_results.items():
@@ -637,13 +637,13 @@ def run_all_tests():
     
     print("=" * 80)
     if all_passed:
-        print("🎉 ALL TESTS PASSED - FUNCTIONALITY PRESERVED & ENHANCED!")
-        print("✅ Existing functionality: PRESERVED")
-        print("✅ New research methods: IMPLEMENTED")
-        print("✅ Configuration system: FLEXIBLE")
-        print("✅ All research solutions: configured")
-        print("✅ Backward compatibility: MAINTAINED")
-        print("✅ Research accuracy: VALIDATED")
+        # Removed print spam: "...
+        # # Removed print spam: "...
+        # # Removed print spam: "...
+        # # Removed print spam: "...
+        # # Removed print spam: "...
+        # # Removed print spam: "...
+        # # Removed print spam: "...
         print("\n🔬 Ready for research use with complete Plate (1995) implementation!")
     else:
         print("❌ SOME TESTS FAILED - REVIEW NEEDED")

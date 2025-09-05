@@ -1,17 +1,104 @@
 """
-🌀 Main Holographic Memory System
-==================================
+📋 Holographic Memory
+======================
 
-This module implements the main HolographicMemory class, which provides a complete
-implementation of Plate's Holographic Reduced Representations (HRR) system.
+🔬 Research Foundation:
+======================
+Based on holographic and vector symbolic architectures:
+- Plate, T.A. (1995). "Holographic Reduced Representations"
+- Kanerva, P. (2009). "Hyperdimensional Computing: An Introduction to Computing in Distributed Representation"
+- Gayler, R.W. (2003). "Vector Symbolic Architectures Answer Jackendoff's Challenges"
+🧪 Technical Details:
+===================
+Implementation details and technical specifications for this component.
+Designed to work seamlessly within the research framework while
+maintaining high performance and accuracy standards.
 
-The HolographicMemory system uses circular convolution for binding operations
-and distributed storage for associative memory functionality.
+"""
+"""
+🌀 Holographic Memory System - Vector Symbolic Architecture
+==========================================================
 
-Based on:
-- Plate (1995) "Holographic Reduced Representations"
-- Vector Symbolic Architecture principles
-- Circular convolution for binding operations
+🎯 ELI5 EXPLANATION:
+==================
+Think of holographic memory like a magical filing cabinet where you can store complex relationships!
+
+Imagine you want to remember "John loves Mary" and "Mary likes pizza". Instead of storing these as separate facts, holographic memory "binds" them together using mathematical operations that work like holograms:
+
+1. 🔮 **Binding**: Combine concepts using circular convolution (like mixing ingredients in a blender)
+   - "AGENT ⊛ John" creates a holographic pattern
+   - "VERB ⊛ loves" creates another pattern  
+   - Add them: relationship = (AGENT ⊛ John) + (VERB ⊛ loves) + (OBJECT ⊛ Mary)
+
+2. 🧠 **Storage**: Store the entire relationship as a single vector
+   - No matter how complex, it fits in fixed-size memory!
+
+3. 🔍 **Retrieval**: Query by unbinding (inverse operation)
+   - Want the agent? Unbind with AGENT: relationship ⊛ AGENT⁻¹ ≈ John
+   - Want the object? Unbind with OBJECT: relationship ⊛ OBJECT⁻¹ ≈ Mary
+
+Just like a hologram contains the whole image in every piece!
+
+🔬 RESEARCH FOUNDATION:
+======================
+Implements Tony Plate's groundbreaking Vector Symbolic Architecture:
+- Plate (1995): "Holographic Reduced Representations: Distributed Representation for Cognitive Structures"
+- Gayler (2003): "Vector Symbolic Architectures answer Jackendoff's challenges for cognitive neuroscience"
+- Kanerva (2009): "Hyperdimensional computing: An introduction to computing in distributed representation"
+
+🧮 MATHEMATICAL PRINCIPLES:
+==========================
+**Circular Convolution Binding:**
+(a ⊛ b)[k] = Σᵢ a[i] · b[(k-i) mod n]
+
+**Key Properties:**
+• Binding: a ⊛ b ≈ b ⊛ a (approximately commutative)
+• Unbinding: a ⊛ b ⊛ b⁻¹ ≈ a (inverse operation)
+• Superposition: (a ⊛ b) + (c ⊛ d) stores both relationships
+• Fixed-size: All vectors have same dimensionality regardless of complexity
+
+📊 ARCHITECTURE VISUALIZATION:
+==============================
+```
+🧠 HOLOGRAPHIC MEMORY ARCHITECTURE 🧠
+
+   Input Concepts                  Holographic Operations
+   ┌─────────────┐                 ┌─────────────────────┐
+   │    AGENT    │ ──────────────→ │                     │
+   │    "John"   │                 │   🔮 BINDING        │
+   └─────────────┘                 │   ⊛ Convolution     │
+                                   │                     │
+   ┌─────────────┐                 │   📊 SUPERPOSITION  │
+   │    VERB     │ ──────────────→ │   + Addition        │
+   │   "loves"   │                 │                     │
+   └─────────────┘                 │   🧠 STORAGE        │
+                                   │   Distributed Vec   │
+   ┌─────────────┐                 │                     │
+   │   OBJECT    │ ──────────────→ │   🔍 RETRIEVAL      │
+   │   "Mary"    │                 │   ⊛ Inverse Conv    │
+   └─────────────┘                 └─────────────────────┘
+                                              │
+                                              ▼
+                     ┌─────────────────────────────────────┐
+                     │      HOLOGRAPHIC VECTOR             │
+                     │  [0.23, -0.45, 0.78, -0.12, ...]   │
+                     │                                     │
+                     │    Contains ALL relationships       │
+                     │    in FIXED-SIZE vector!            │
+                     └─────────────────────────────────────┘
+                                              │
+                                              ▼
+                        Query: "Who is the AGENT?"
+                                              │
+                                              ▼
+                     Unbind: result ⊛ AGENT⁻¹ ≈ "John" ✨
+```
+
+💰 SUPPORT THIS RESEARCH:
+=========================
+🙏 If this library helps your research:
+💳 PayPal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS
+💖 GitHub Sponsors: https://github.com/sponsors/benedictchen
 
 Author: Benedict Chen (benedict@benedictchen.com)
 """

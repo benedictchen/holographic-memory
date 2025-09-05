@@ -371,7 +371,7 @@ def run_comprehensive_test():
     print(f"\n🎯 Overall Success Rate: {passed_tests}/{len(tests)} ({success_rate:.1%})")
     
     if success_rate >= 0.8:
-        print("🚀 MODULARIZATION SUCCESSFUL! All critical systems working.")
+        # print("🚀 MODULARIZATION SUCCESSFUL! All critical systems working.")
     elif success_rate >= 0.6:
         print("⚠️  MODULARIZATION MOSTLY SUCCESSFUL. Some issues to address.")
     else:

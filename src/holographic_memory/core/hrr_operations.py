@@ -1,14 +1,79 @@
 """
-🔄 HRR Operations - Core Holographic Operations
-==============================================
+🌀 HRR Operations - Holographic Memory Magic Engine
+=================================================
 
-This module implements the fundamental operations for Holographic Reduced
-Representations (HRR), including circular convolution binding, correlation
-unbinding, and vector composition operations.
+🎯 ELI5 EXPLANATION:
+==================
+Think of Holographic Reduced Representations like creating magical photo albums that store infinite memories in a single image!
 
-Based on Plate (1995) "Holographic Reduced Representations".
+Imagine you have a special camera that can take millions of photos and somehow merge them all into one magical picture. When you look at this single photo, you can somehow extract any of the original pictures perfectly! That's exactly what HRR operations do with information:
+
+1. 🔀 **Binding (Circular Convolution)**: Take two pieces of information and "bind" them together using mathematical magic
+2. 🔍 **Unbinding (Circular Correlation)**: From the bound information, extract the original pieces back
+3. ➕ **Superposition**: Stack multiple memories on top of each other like transparent photos
+4. 🌀 **Similarity**: Measure how close two holographic memories are to each other
+
+It's like having a library where every book is compressed into a single page, but you can still read any book perfectly by knowing the right "extraction spell" (mathematical operation)!
+
+🔬 RESEARCH FOUNDATION:
+======================
+Core holographic memory theory from cognitive science pioneers:
+- **Tony Plate (1995)**: "Holographic reduced representations" - Original HRR breakthrough
+- **Kanerva (2009)**: "Hyperdimensional computing" - Vector symbolic architecture theory
+- **Gayler (2003)**: "Vector symbolic architectures" - Computational foundations
+- **Rachkovskij & Kussul (2001)**: "Binding and normalization of binary sparse distributed representations" - Practical implementations
+
+🧮 MATHEMATICAL PRINCIPLES:
+==========================
+**Circular Convolution (Binding):**
+(a ⊛ b)ₖ = Σᵢ aᵢ b₍ₖ₋ᵢ₎ mod n
+
+**Circular Correlation (Unbinding):**
+(a ⊗ b)ₖ = Σᵢ aᵢ b₍ₖ₊ᵢ₎ mod n
+
+**Superposition:**
+c = αa + βb (weighted vector addition)
+
+**Similarity:**
+sim(a,b) = a·b / (||a|| ||b||)
+
+📊 HRR OPERATIONS VISUALIZATION:
+==============================
+```
+🌀 HOLOGRAPHIC REDUCED REPRESENTATIONS 🌀
+
+Input Vectors              HRR Operations                 Memory Storage
+┌─────────────────┐       ┌───────────────────────────┐  ┌─────────────────┐
+│ 🎭 Role Vector  │       │                           │  │ 🧠 HOLOGRAPHIC  │
+│ [person, place] │ ───→  │  🔀 BINDING (⊛):          │→ │ MEMORY          │
+│ Semantic info   │       │  • Circular convolution   │  │ Single vector   │
+└─────────────────┘       │  • FFT optimization       │  │ stores multiple │
+                          │  • Preserves structure    │  │ relationships   │
+┌─────────────────┐       │                           │  │                 │
+│ 🎯 Filler Vector│ ───→  │  🔍 UNBINDING (⊗):        │  │ 🔍 RETRIEVAL    │
+│ [John, Paris]   │       │  • Circular correlation   │  │ Extract any     │
+│ Specific values │       │  • Inverse operation      │  │ bound component │
+└─────────────────┘       │  • Noise-robust          │  │ with high       │
+                          │                           │  │ accuracy        │
+┌─────────────────┐       │  ➕ SUPERPOSITION:        │  │                 │
+│ 📊 Weights       │ ───→  │  • Weighted addition     │  │ ✨ MAGIC        │
+│ [0.7, 0.3, ...]│       │  • Multiple memories      │  │ Infinite info   │
+└─────────────────┘       │  • Transparent overlay   │  │ in finite space │
+                          └───────────────────────────┘  └─────────────────┘
+                                         │
+                                         ▼
+                               RESULT: Holographic memory that
+                                      stores everything! 🚀
+```
+
+💰 SUPPORT THIS RESEARCH:
+=========================
+🙏 If this library helps your research:
+💳 PayPal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WXQKYYKPHWXHS
+💖 GitHub Sponsors: https://github.com/sponsors/benedictchen
 
 Author: Benedict Chen (benedict@benedictchen.com)
+Based on: Tony Plate's foundational holographic memory theory
 """
 
 import numpy as np

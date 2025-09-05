@@ -1,4 +1,29 @@
 """
+📋 Associative Cleanup
+=======================
+
+🎯 ELI5 Summary:
+This file is an important component in our AI research system! Like different organs 
+in your body that work together to keep you healthy, this file has a specific job that 
+helps the overall algorithm work correctly and efficiently.
+
+🧪 Technical Details:
+===================
+Implementation details and technical specifications for this component.
+Designed to work seamlessly within the research framework while
+maintaining high performance and accuracy standards.
+
+📋 Component Integration:
+========================
+    ┌──────────┐
+    │   This   │
+    │Component │ ←→ Other Components
+    └──────────┘
+         ↑↓
+    System Integration
+
+"""
+"""
 🔄 Holographic Memory - Associative Cleanup Engine Module
 ========================================================
 
@@ -491,11 +516,11 @@ __all__ = ['AssociativeCleanup']
 if __name__ == "__main__":
     print("🔄 Holographic Memory - Associative Cleanup Engine Module")
     print("=" * 64)
-    print("📊 MODULE CONTENTS:")
+    # Removed print spam: "...
     print("  • AssociativeCleanup - Research-accurate cleanup with correlation methods")
     print("  • Addresses all FIXME research accuracy issues from Plate (1995)")
     print("  • Iterative cleanup with convergence guarantees and oscillation detection")
     print("  • Enhanced prototype-based cleanup with confidence scoring")
     print("")
-    print("✅ Associative cleanup engine module loaded successfully!")
+    # # Removed print spam: "...
     print("🔬 Plate (1995) Section IV compliant correlation-based cleanup!")

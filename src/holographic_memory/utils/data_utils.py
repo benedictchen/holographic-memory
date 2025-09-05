@@ -1,4 +1,35 @@
 """
+🔧 Data Utils
+==============
+
+🔬 Research Foundation:
+======================
+Based on holographic and vector symbolic architectures:
+- Plate, T.A. (1995). "Holographic Reduced Representations"
+- Kanerva, P. (2009). "Hyperdimensional Computing: An Introduction to Computing in Distributed Representation"
+- Gayler, R.W. (2003). "Vector Symbolic Architectures Answer Jackendoff's Challenges"
+🎯 ELI5 Summary:
+This is like a toolbox full of helpful utilities! Just like how a carpenter has 
+different tools for different jobs (hammer, screwdriver, saw), this file contains helpful 
+functions that other parts of our code use to get their work done.
+
+🧪 Technical Details:
+===================
+Implementation details and technical specifications for this component.
+Designed to work seamlessly within the research framework while
+maintaining high performance and accuracy standards.
+
+📋 Component Integration:
+========================
+    ┌──────────┐
+    │   This   │
+    │Component │ ←→ Other Components
+    └──────────┘
+         ↑↓
+    System Integration
+
+"""
+"""
 💾 Data Utility Functions
 ========================
 
